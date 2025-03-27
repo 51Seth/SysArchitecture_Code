@@ -20,3 +20,12 @@ CREATE TABLE Department (
     IsActive BIT(1) NOT NULL,
     FOREIGN KEY (CollegeID) REFERENCES College(CollegeID)
 );
+
+CREATE TABLE Year(
+    YearID INT PRIMARY KEY AUTO_INCREMENT,
+    DepartmentID INT,
+    CollegeID INT,
+    YearLevel VARCHAR(255) NOT NULL,
+    IsActive BIT(1) NOT NULL,
+    FOREIGN KEY (DepartmentID) REFERENCES Department(DepartmentID)
+);

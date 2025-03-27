@@ -70,6 +70,7 @@ try{
                                 <td><?php if ($dep['IsActive']){echo "Active";} else {echo "Inactive";}?></td>
                                 
                                 <td>
+                                    <a href="Year.php?id=<?= $dep['DepartmentID']?>" class="btn btn-success">Year List</a>
                                     <a href="Edit-Department.php?depid=<?= $dep['DepartmentID']?>&collegeid=<?=$dep['CollegeID']?>" class="btn btn-warning">Edit</a> 
                                     <a href="#" onclick = "confirm('Are you sure you want to delete this department?') ?
                  window.location.href ='includes/delete-Department.inc.php?id=<?= $dep['DepartmentID']?>&collegeid=<?=$dep['CollegeID']?>': '' " class="btn btn-danger">
