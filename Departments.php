@@ -49,7 +49,7 @@ try{
                 </div>
                 
                 
-                
+
 
 
                 <table class="table table-bordered table-striped">
@@ -85,7 +85,6 @@ try{
                        
                     </tbody>
                 </table>
-                
             </div>
         </div>
     </div>
