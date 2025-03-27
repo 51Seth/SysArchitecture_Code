@@ -59,6 +59,7 @@ try {
                     <a href="index.php" class="btn btn-danger">Go Back</a>
                     <a href="Add-Department.php?id=<?= $CollegeID ?>" class="btn btn-success">Add</a>
                 </div>
+                
                 <table class="table table-bordered table-striped">
                     <thead class="bg-dark text-white">
                         <tr>
