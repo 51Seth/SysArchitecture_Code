@@ -14,6 +14,7 @@ try{
         $stmt = $pdo->prepare($query);
         $stmt->execute(['search' => "%$search%"]);
         $college = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  
     }
 
 }catch(PDOException $e){
