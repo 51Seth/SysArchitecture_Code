@@ -21,6 +21,7 @@ try {
 } catch(PDOException $e) {
     die("Query Failed: ". $e->getMessage());
 }
+
 try {
     $query = "SELECT CollegeName FROM college WHERE CollegeID = :CollegeID;";
     $stmt = $pdo->prepare($query);
@@ -31,6 +32,8 @@ try {
     die("Query Failed: ". $e->getMessage());
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,6 +61,7 @@ try {
                     <a href="index.php" class="btn btn-danger">Go Back</a>
                     <a href="Add-Department.php?id=<?= $CollegeID ?>" class="btn btn-success">Add</a>
                 </div>
+
                 <table class="table table-bordered table-striped">
                     <thead class="bg-dark text-white">
                         <tr>
@@ -78,6 +82,7 @@ try {
                                 <td><?= $dep['DepartmentCode'] ?></td>
                                 <td><?= $dep['IsActive'] ? "Active" : "Inactive" ?></td>
                                 <td>
+                                    <a href="Year.php?id=<?= $dep['DepartmentID']?>" class="btn btn-success">Year List</a>
                                     <a href="Edit-Department.php?depid=<?= $dep['DepartmentID'] ?>&collegeid=<?= $dep['CollegeID'] ?>" class="btn btn-warning">Edit</a> 
                                     <a href="#" onclick="confirm('Are you sure you want to delete this department?') ? window.location.href ='includes/delete-Department.inc.php?id=<?= $dep['DepartmentID'] ?>&collegeid=<?= $dep['CollegeID'] ?>' : ''" class="btn btn-danger">Delete</a>
                                 </td>
