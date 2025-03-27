@@ -41,9 +41,10 @@ try{
                     <div class="input-group mb-3">
                         <input type="text" name="search" class="form-control" placeholder="Search by College Name or Code" value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
                         <button type="submit" class="btn btn-primary">Search</button>
+                       
                     </div>
                 </form>
-                <a href="Add-College.php" class="btn btn-success mb-3">Add</a>
+                <a href="Add-College.php" class="btn btn-success mb-3">Add New College</a>
                 <table class="table table-bordered table-striped">
                     <thead class="bg-dark text-white">
                         <tr>
