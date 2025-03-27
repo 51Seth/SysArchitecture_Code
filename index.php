@@ -15,11 +15,9 @@ try{
         $stmt->execute(['search' => "%$search%"]);
         $college = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
 } catch(PDOException $e){
     die("Query Failed: ". $e->getMessage());
 }
-
 ?>
 
 <!DOCTYPE html>
