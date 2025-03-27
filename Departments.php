@@ -21,7 +21,6 @@ try {
 } catch(PDOException $e) {
     die("Query Failed: ". $e->getMessage());
 }
-
 try {
     $query = "SELECT CollegeName FROM college WHERE CollegeID = :CollegeID;";
     $stmt = $pdo->prepare($query);
