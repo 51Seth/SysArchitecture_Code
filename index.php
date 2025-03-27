@@ -1,20 +1,24 @@
 <?php 
 require_once "includes/dbc.inc.php";
 try{
-    $query = "Select * FROM college;";
-    $stmt = $pdo->prepare($query);
-    $stmt->execute();
-    $college = $stmt->fetchAll(PDO::FETCH_ASSOC);
-}catch(PDOException $e){
+    if(!isset($_GET['search']) || $_GET['search'] == '') {
+        $query = "Select * FROM college;";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+        $college = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    if(isset($_GET['search']) && $_GET['search'] != '') {
+        $search = $_GET['search'];
+        $query = "SELECT * FROM college WHERE CollegeName LIKE :search OR CollegeCode LIKE :search;";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute(['search' => "%$search%"]);
+        $college = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+} catch(PDOException $e){
     die("Query Failed: ". $e->getMessage());
 }
-
-
-
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,11 +35,14 @@ try{
                 <h3>College List</h3>
             </div>
             <div class="card-body">
-              
-                    <a href="Add-College.php" class="btn btn-success">Add</a>
-                </div>
-                
-              
+                <form action="index.php" method="GET">
+                    <div class="input-group mb-3">
+                        <input type="text" name="search" class="form-control" placeholder="Search by College Name or Code" value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                       
+                    </div>
+                </form>
+                <a href="Add-College.php" class="btn btn-success mb-3">Add New College</a>
                 <table class="table table-bordered table-striped">
                     <thead class="bg-dark text-white">
                         <tr>
@@ -53,19 +60,13 @@ try{
                                 <td><?= $coll['CollegeName']?></td>
                                 <td><?= $coll['CollegeCode']?></td>
                                 <td><?php if ($coll['IsActive']){echo "Active";} else {echo "Inactive";}?></td>
-                               
-                                
                                 <td>
                                     <a href="Departments.php?id=<?= $coll['CollegeID']?>" class="btn btn-success">Department List</a>
                                     <a href="Edit-College.php?id=<?= $coll['CollegeID']?>" class="btn btn-warning">Edit</a> 
-                                    <a href="#" onclick = "confirm('Are you sure you want to delete this college?') ?
-                 window.location.href ='includes/delete-College.inc.php?id=<?= $coll['CollegeID']?>': '' " class="btn btn-danger">
-                    Delete
-                </a>
+                                    <a href="#" onclick="confirm('Are you sure you want to delete this college?') ? window.location.href ='includes/delete-College.inc.php?id=<?= $coll['CollegeID']?>' : ''" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
-                       
                     </tbody>
                 </table>
             </div>
