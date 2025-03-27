@@ -1,15 +1,24 @@
 <?php 
 require_once "includes/dbc.inc.php";
 try{
+    if(!isset($_GET['search' || $_GET['search'] == ''])) {
     $query = "Select * FROM college;";
     $stmt = $pdo->prepare($query);
     $stmt->execute();
     $college = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    if(isset($_GET['search']) && $_GET['search'] != '') {
+        $search = $_GET['search'];
+        $query = "SELECT * FROM college WHERE CollegeName LIKE :search OR CollegeCode LIKE :search;";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute(['search' => "%$search%"]);
+        $college = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }catch(PDOException $e){
     die("Query Failed: ". $e->getMessage());
 }
-
-
 
 ?>
 
@@ -31,7 +40,10 @@ try{
                 <h3>College List</h3>
             </div>
             <div class="card-body">
-              
+            <form action="index.php">
+            <input type="text" name="search" class="form-control" placeholder="Search by College Name or Code">
+            <button type="submit" class="btn btn-success">Search</button>
+            </form>
                     <a href="Add-College.php" class="btn btn-success">Add</a>
                 </div>
                 
